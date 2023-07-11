@@ -1,9 +1,10 @@
-import { useParams, Link, Outlet,} from "react-router-dom";
+import { useParams, Link, Outlet, useLocation} from "react-router-dom";
 // import { useEffect } from 'react';
 
 
 const MoviesDetails = () => {
-  const { movieId } = useParams();
+    const { movieId } = useParams();
+    const location = useLocation();
 //   console.log(movieId);
 
 //       useEffect(() => {
@@ -13,7 +14,8 @@ const MoviesDetails = () => {
 
     return (
       <>
-        <h1>MoviesDetails: {movieId}</h1>
+            <h1>MoviesDetails: {movieId}</h1>
+            <Link to={location.state.from}>Back to Home</Link>
         <ul>
           <li>
             <Link to="cast">cast</Link>

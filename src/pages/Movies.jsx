@@ -1,6 +1,6 @@
 // import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
 
@@ -10,6 +10,8 @@ const Movies = () => {
       'movie-3',
       'movie-4',
     ]);
+
+    const location = useLocation();
   //     useEffect(() => {
   // // /search/search-movies пошук фільму за ключовим словом на сторінці фільмів.
   // // /movies/get-movie-details запит повної інформації про фільм для сторінки кінофільму.
@@ -39,7 +41,7 @@ const Movies = () => {
       <input type="text" value={movieId} onChange={updateQueryString} />
       {visibleMovie.map(movie => {
         return (
-          <Link key={movie} to={`${movie}`}>
+            <Link key={movie} to={`${movie}`} state={{ from: location }}>
             {movie}
           </Link>
         );
