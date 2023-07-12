@@ -1,21 +1,36 @@
+import { useRef, Suspense, useState, useEffect } from 'react';
 import { useParams, Link, Outlet, useLocation} from "react-router-dom";
-// import { useEffect } from 'react';
+import { getMoviesById } from '../services/api';
 
 
 const MoviesDetails = () => {
+  const [movie, setMovie] = useState('');
     const { movieId } = useParams();
-    const location = useLocation();
-//   console.log(movieId);
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
-//       useEffect(() => {
-//   // /movies/get-movie-credits запит інформації про акторський склад для сторінки кінофільму.
-//   // /movies/get-movie-reviews запит оглядів для сторінки кінофільму.
-//       });
+ 
+
+ useEffect(() => {
+   async function movieById() {
+     try {
+       const data = await getMoviesById(movieId);
+       setMovie(data);
+     } catch (error) {
+       console.log(error);
+     }
+   }
+
+   movieById();
+ }, [movieId]);
+
 
     return (
       <>
-            <h1>MoviesDetails: {movieId}</h1>
-            <Link to={location.state.from}>Back to Home</Link>
+        {' '}
+        {movie && <div>movie</div>}
+        <h1>MoviesDetails: {movieId}</h1>
+        <Link to={backLinkLocationRef.current}>Go to back</Link>
         <ul>
           <li>
             <Link to="cast">cast</Link>
@@ -24,7 +39,9 @@ const MoviesDetails = () => {
             <Link to="reviews">reviews</Link>
           </li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </>
     );
 };
