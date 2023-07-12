@@ -20,7 +20,6 @@ const Movies = () => {
   //     });
     
     const [searchParams, setSearchParams] = useSearchParams();
-    console.log(searchParams);
     const movieId = searchParams.get('movieId') ?? '';;
 
     const updateQueryString = event => {

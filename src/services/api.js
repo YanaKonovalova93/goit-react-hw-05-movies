@@ -13,10 +13,20 @@ export const getTrendingMovies = async () => {
 
 
 export const getMoviesById = async (movieId) => {
-  const response = await axios.get(`movie/{${movieId}}?api_key=${KEY}`);
+  const response = await axios.get(`movie/${movieId}?api_key=${KEY}`);
   const results  = response.data;
-
   return results;
 };
 
 
+export const getReviewsById = async movieId => {
+  const response = await axios.get(`movie/${movieId}/reviews?api_key=${KEY}`);
+  const results = response.data;
+  return results;
+};
+
+export const getCastById = async movieId => {
+  const response = await axios.get(`movie/${movieId}/credits?api_key=${KEY}`);
+  const results = response.data;
+  return results;
+};
