@@ -18,6 +18,9 @@ useEffect(() => {
 
   castById();
 }, [movieId]);
+    
+    const defaultImg =
+      'https://cdn.vectorstock.com/i/preview-1x/70/84/default-avatar-profile-icon-symbol-for-website-vector-46547084.jpg';
 
   return (
     <>
@@ -26,9 +29,19 @@ useEffect(() => {
           <ul>
             {castData.cast.slice(0, 9).map(item => (
               <li key={item.id}>
-                <img
+                {/* <img
                   src={`https://image.tmdb.org/t/p/w300/${item.profile_path}`}
                   alt=""
+                /> */}
+
+                <img
+                  src={
+                    item.profile_path
+                      ? `https://image.tmdb.org/t/p/w300/${item.profile_path}`
+                      : defaultImg
+                  }
+                  width={150}
+                  alt="poster"
                 />
                 <h3>Actor/Actress: {item.name}</h3>
                 <p>Character: {item.character}</p>
